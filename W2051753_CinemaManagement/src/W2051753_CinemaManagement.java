@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class W2051753_CinemaManagement {
     private final int[][] seat_pattern;
     private final int num_of_seats_per_rows;
@@ -33,7 +35,24 @@ public class W2051753_CinemaManagement {
         System.out.println("Select Option : ");
     }
 
+    public void selectOption(){
+        Scanner scanner = new Scanner(System.in);
+        int option = scanner.nextInt();
 
+        if (option < 1 || (option > 3 && option != 8)) {
+            System.out.println("Invalid option. Please try again.");
+
+
+
+
+//        do{
+//            System.out.println("rrrr");
+//
+//
+//        }while (option != 8);
+
+
+    }
 
 
 
@@ -49,4 +68,4 @@ public class W2051753_CinemaManagement {
 //
 //}
 
-}
+}}
