@@ -21,7 +21,7 @@ public class W2051753_CinemaManagement {
         }
     }
 
-    public void print_Menu(){
+    public void print_Menu() {
         System.out.println("---------------------------------------------------------");
         System.out.println("1) Buy a ticket");
         System.out.println("2) Cancel ticket");
@@ -33,39 +33,43 @@ public class W2051753_CinemaManagement {
         System.out.println("8) Exit");
         System.out.println("---------------------------------------------------------");
         System.out.println("Select Option : ");
+        selectOption();
     }
 
-    public void selectOption(){
+    public void selectOption() {
         Scanner scanner = new Scanner(System.in);
-        int option = scanner.nextInt();
 
-        if (option < 1 || (option > 3 && option != 8)) {
-            System.out.println("Invalid option. Please try again.");
+        while (true) {
+
+            int option = scanner.nextInt();
+
+            if (option < 1 || (option > 3 && option != 8)) {
+                System.out.println("Invalid option. Please try again.");
+                print_Menu();
+            }
+
+            if (option == 8) {
+                System.out.println("Exiting Programme.! Thank You.");
+            }
+
+            switch (option) {
+
+                case 1 -> buy_ticket();
+                case 2 -> System.out.println("innnn");
+                case 3 -> print_Menu();
+                case 4 -> print_Menu();
+                case 5 -> print_Menu();
+                case 6 -> print_Menu();
+                case 7 -> print_Menu();
+                default -> System.out.println("wrong input");
+            }
+        }
+    public void buy_ticket () {
+        
 
 
-
-
-//        do{
-//            System.out.println("rrrr");
-//
-//
-//        }while (option != 8);
-
-
+        }
     }
 
 
-
-
-
-//    public void printSeatPattern() {
-//        for (int i = 0; i < num_of_seats_per_rows; i++) {
-//            for (int j = 0; j < num_of_rows; j++) {
-//                System.out.print(seat_pattern[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-//
-//}
-
-}}
+}

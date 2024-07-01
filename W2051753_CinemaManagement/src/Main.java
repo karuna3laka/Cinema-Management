@@ -10,9 +10,9 @@ public class Main {
         int seats_in_rows=16;
 
         W2051753_CinemaManagement cinema = new W2051753_CinemaManagement(seats_in_rows, rows);
-//        cinema.printSeatPattern();
+
         cinema.print_Menu();
-        cinema.selectOption();
+
 
     }
 }
