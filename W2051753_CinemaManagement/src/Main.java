@@ -9,8 +9,7 @@ public class Main {
         int rows=3;
         int seats_in_rows=16;
 
-        W2051753_CinemaManagement cinema = new W2051753_CinemaManagement(seats_in_rows, rows);
-
+        W2051753_CinemaManagement cinema = new W2051753_CinemaManagement(rows,seats_in_rows);
         cinema.print_Menu();
 
 

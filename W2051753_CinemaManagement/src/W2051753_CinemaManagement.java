@@ -8,19 +8,18 @@ public class W2051753_CinemaManagement {
     public W2051753_CinemaManagement(int rows, int seatsPerRow) {
         this.num_of_rows = rows;
         this.num_of_seats_per_rows = seatsPerRow;
-        this.seat_pattern = new int[num_of_seats_per_rows][num_of_rows];
+        this.seat_pattern = new int[num_of_rows][num_of_seats_per_rows];
         setAllToZero();
     }
 
-    //set arrays to 0 cuz it need to represent as 0 at the start
+    //set all array element to 0 cuz it need to represent as 0 at the start
     public void setAllToZero() {
-        for (int i = 0; i < num_of_seats_per_rows; i++) {
-            for (int j = 0; j < num_of_rows; j++) {
+        for (int i = 0; i < num_of_rows; i++) {
+            for (int j = 0; j < num_of_seats_per_rows; j++) {
                 seat_pattern[i][j] = 0;
             }
         }
     }
-
     public void print_Menu() {
         System.out.println("---------------------------------------------------------");
         System.out.println("1) Buy a ticket");
@@ -44,32 +43,92 @@ public class W2051753_CinemaManagement {
             int option = scanner.nextInt();
 
             if (option < 1 || (option > 3 && option != 8)) {
-                System.out.println("Invalid option. Please try again.");
+                System.out.print("Invalid option. Please try again.");
                 print_Menu();
             }
 
             if (option == 8) {
                 System.out.println("Exiting Programme.! Thank You.");
+                break;
             }
 
             switch (option) {
 
                 case 1 -> buy_ticket();
-                case 2 -> System.out.println("innnn");
-                case 3 -> print_Menu();
-                case 4 -> print_Menu();
+                case 2 -> cancel_ticket();
+                case 3 -> print_seating_area();
+                case 4 -> print_seating_area();
                 case 5 -> print_Menu();
                 case 6 -> print_Menu();
                 case 7 -> print_Menu();
                 default -> System.out.println("wrong input");
             }
         }
-    public void buy_ticket () {
-        
+    }
 
+    public void buy_ticket() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter row number (1 to " + (num_of_rows) + "): ");
+        int rowNum = scanner.nextInt();
+        System.out.print("Enter seat number (1 to " + (num_of_seats_per_rows) + "): ");
+        int seatNum = scanner.nextInt();
 
+        //change real world input into array fitted
+        rowNum=rowNum-1;
+        seatNum=seatNum-1;
+
+        if (rowNum >= 0 && rowNum < num_of_rows && seatNum >= 0 && seatNum < num_of_seats_per_rows) {
+            if (seat_pattern[rowNum][seatNum] == 0) {
+                seat_pattern[rowNum][seatNum] = 1;
+                System.out.println("The seat has been booked");
+            } else {
+                System.out.println("This seat is not available");
+            }
+        } else {
+            System.out.println("Invalid Row or Seat Number.!");
         }
     }
 
+    public void  cancel_ticket() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter row number (1 to " + (num_of_rows) + "): ");
+        int rowNum = scanner.nextInt();
+        System.out.print("Enter seat number (1 to " + (num_of_seats_per_rows) + "): ");
+        int seatNum = scanner.nextInt();
+
+        //change real world input into array fitted
+        rowNum=rowNum-1;
+        seatNum=seatNum-1;
+
+        if (rowNum >= 0 && rowNum < num_of_rows && seatNum >= 0 && seatNum < num_of_seats_per_rows) {
+            if (seat_pattern[rowNum][seatNum] == 1) {
+                seat_pattern[rowNum][seatNum] = 0;
+                System.out.println("The seat has been cancelled");
+
+            } else {
+                System.out.println("This seat is already available");
+            }
+        } else {
+            System.out.println("Invalid Row or Seat Number.!");
+        }
+    }
+
+    public void print_seating_area() {
+        System.out.println("    ***********************");
+        System.out.println("    *       SCREEN        *");
+        System.out.println("    ***********************");
+        for (int i = 0; i < num_of_rows; i++) {
+            for (int j = 0; j < num_of_seats_per_rows; j++) {
+                if (j == (num_of_seats_per_rows / 2)) {
+                    System.out.print("  ");
+                }
+                System.out.print(seat_pattern[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 
 }
+
+
+
