@@ -42,8 +42,8 @@ public class W2051753_CinemaManagement {
 
             int option = scanner.nextInt();
 
-            if (option < 1 || (option > 3 && option != 8)) {
-                System.out.print("Invalid option. Please try again.");
+            if (option < 1 || (option >= 7 && option != 8)) {
+                System.out.println("Invalid option. Please try again.");
                 print_Menu();
             }
 
@@ -132,8 +132,27 @@ public class W2051753_CinemaManagement {
             System.out.println();
         }
     }
-    public void find_first_available(){
+    public void  find_first_available() {
+        boolean didFind = false;
 
+        for (int i = 0; i < num_of_rows; i++) {
+            for (int j = 0; j < num_of_seats_per_rows; j++) {
+                if (seat_pattern[i][j] == 1) {
+                    continue;
+                } else {
+                    System.out.println("Row - " + (i+1)+ ' ' +"Seat -" + (j+1));
+                    didFind=true;
+                    break;
+                }
+            }
+            if (didFind){
+               break;
+            }
+
+        }
+    if(!didFind){
+        System.out.println("Unfortunately . All seats are booked !");
+    }
     }
 }
 
