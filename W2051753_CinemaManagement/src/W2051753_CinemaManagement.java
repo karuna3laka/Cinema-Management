@@ -57,7 +57,7 @@ public class W2051753_CinemaManagement {
                 case 1 -> buy_ticket();
                 case 2 -> cancel_ticket();
                 case 3 -> print_seating_area();
-                case 4 -> print_seating_area();
+                case 4 -> find_first_available();
                 case 5 -> print_Menu();
                 case 6 -> print_Menu();
                 case 7 -> print_Menu();
@@ -117,17 +117,24 @@ public class W2051753_CinemaManagement {
         System.out.println("    ***********************");
         System.out.println("    *       SCREEN        *");
         System.out.println("    ***********************");
+
         for (int i = 0; i < num_of_rows; i++) {
             for (int j = 0; j < num_of_seats_per_rows; j++) {
                 if (j == (num_of_seats_per_rows / 2)) {
                     System.out.print("  ");
                 }
-                System.out.print(seat_pattern[i][j] + " ");
+                if(seat_pattern[i][j]==1){
+                    System.out.print("X"+" ");
+                }else {
+                    System.out.print(seat_pattern[i][j] + " ");
+                }
             }
             System.out.println();
         }
     }
+    public void find_first_available(){
 
+    }
 }
 
 
