@@ -4,11 +4,14 @@ public class W2051753_CinemaManagement {
     private final int[][] seat_pattern;
     private final int num_of_seats_per_rows;
     private final int num_of_rows;
+    private final Ticket[] tickets;
+    private int soldTicketCount = 0;
 
     public W2051753_CinemaManagement(int rows, int seatsPerRow) {
         this.num_of_rows = rows;
         this.num_of_seats_per_rows = seatsPerRow;
         this.seat_pattern = new int[num_of_rows][num_of_seats_per_rows];
+        this.tickets = new Ticket[48]; //whole possibilities can be (numrows * columns)
         setAllToZero();
     }
 
@@ -80,6 +83,22 @@ public class W2051753_CinemaManagement {
         if (rowNum >= 0 && rowNum < num_of_rows && seatNum >= 0 && seatNum < num_of_seats_per_rows) {
             if (seat_pattern[rowNum][seatNum] == 0) {
                 seat_pattern[rowNum][seatNum] = 1;
+
+                int price = 10 ; //assume price
+
+                System.out.print("What is your First Name ->");
+                String name = scanner.next();
+
+                System.out.print("What is your SurName ->");
+                String surname = scanner.next();
+
+                System.out.print("What is your Email ->");
+                String email = scanner.next();
+
+                Person person = new Person( name,surname,email);
+                Ticket ticket = new Ticket(rowNum+1,price,seatNum+1,person);
+                tickets[soldTicketCount++]=ticket; //add one into tickets
+
                 System.out.println("The seat has been booked");
             } else {
                 System.out.println("This seat is not available");
@@ -97,8 +116,8 @@ public class W2051753_CinemaManagement {
         int seatNum = scanner.nextInt();
 
         //change real world input into array fitted
-        rowNum=rowNum-1;
-        seatNum=seatNum-1;
+        rowNum--;
+        seatNum--;
 
         if (rowNum >= 0 && rowNum < num_of_rows && seatNum >= 0 && seatNum < num_of_seats_per_rows) {
             if (seat_pattern[rowNum][seatNum] == 1) {
@@ -115,7 +134,7 @@ public class W2051753_CinemaManagement {
 
     public void print_seating_area() {
         System.out.println("    ***********************");
-        System.out.println("    *       SCREEN        *");
+        System.out.println("    *         SCREEN      *");
         System.out.println("    ***********************");
 
         for (int i = 0; i < num_of_rows; i++) {
@@ -140,20 +159,21 @@ public class W2051753_CinemaManagement {
                 if (seat_pattern[i][j] == 1) {
                     continue;
                 } else {
-                    System.out.println("Row - " + (i+1)+ ' ' +"Seat -" + (j+1));
-                    didFind=true;
+                    System.out.println("Row - " + (i + 1) + ' ' + "Seat -" + (j + 1));
+                    didFind = true;
                     break;
                 }
             }
-            if (didFind){
-               break;
+            if (didFind) {
+                break;
             }
 
         }
-    if(!didFind){
-        System.out.println("Unfortunately . All seats are booked !");
+        if (!didFind) {
+            System.out.println("Unfortunately . All seats are booked !");
+        }
     }
-    }
+
 }
 
 
