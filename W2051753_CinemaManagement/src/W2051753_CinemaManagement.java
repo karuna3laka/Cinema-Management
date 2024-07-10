@@ -6,6 +6,9 @@ public class W2051753_CinemaManagement {
     private final int num_of_rows;
     private final Ticket[] tickets;
     private int soldTicketCount = 0;
+//    private int totalPrice = 0 ;
+
+
 
     public W2051753_CinemaManagement(int rows, int seatsPerRow) {
         this.num_of_rows = rows;
@@ -34,22 +37,20 @@ public class W2051753_CinemaManagement {
         System.out.println("7) Sort tickets by price");
         System.out.println("8) Exit");
         System.out.println("---------------------------------------------------------");
-        System.out.println("Select Option : ");
         selectOption();
     }
 
     public void selectOption() {
+        System.out.print("Select Option : ");
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-
             int option = scanner.nextInt();
 
             if (option < 1 || (option >= 7 && option != 8)) {
                 System.out.println("Invalid option. Please try again.");
                 print_Menu();
             }
-
             if (option == 8) {
                 System.out.println("Exiting Programme.! Thank You.");
                 break;
@@ -61,14 +62,13 @@ public class W2051753_CinemaManagement {
                 case 2 -> cancel_ticket();
                 case 3 -> print_seating_area();
                 case 4 -> find_first_available();
-                case 5 -> print_Menu();
+                case 5 -> print_tickets_info();
                 case 6 -> print_Menu();
                 case 7 -> print_Menu();
                 default -> System.out.println("wrong input");
             }
         }
     }
-
     public void buy_ticket() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter row number (1 to " + (num_of_rows) + "): ");
@@ -77,8 +77,8 @@ public class W2051753_CinemaManagement {
         int seatNum = scanner.nextInt();
 
         //change real world input into array fitted
-        rowNum=rowNum-1;
-        seatNum=seatNum-1;
+        rowNum--;
+        seatNum--;
 
         if (rowNum >= 0 && rowNum < num_of_rows && seatNum >= 0 && seatNum < num_of_seats_per_rows) {
             if (seat_pattern[rowNum][seatNum] == 0) {
@@ -96,8 +96,9 @@ public class W2051753_CinemaManagement {
                 String email = scanner.next();
 
                 Person person = new Person( name,surname,email);
-                Ticket ticket = new Ticket(rowNum+1,price,seatNum+1,person);
-                tickets[soldTicketCount++]=ticket; //add one into tickets
+                Ticket ticket = new Ticket(rowNum+1,price,seatNum+1,person,soldTicketCount+1);
+                tickets[soldTicketCount++]=ticket;
+//                totalPrice += price;//add one into tickets
 
                 System.out.println("The seat has been booked");
             } else {
@@ -122,7 +123,31 @@ public class W2051753_CinemaManagement {
         if (rowNum >= 0 && rowNum < num_of_rows && seatNum >= 0 && seatNum < num_of_seats_per_rows) {
             if (seat_pattern[rowNum][seatNum] == 1) {
                 seat_pattern[rowNum][seatNum] = 0;
-                System.out.println("The seat has been cancelled");
+
+                boolean didFind = false;
+
+                for (int i = 0; i < soldTicketCount; i++) {
+                    if (tickets[i].getRow() == rowNum + 1 && tickets[i].getSeat() == seatNum + 1) {
+                        tickets[i] = null;
+                        didFind = true;
+
+                        for (int j = i; j < soldTicketCount - 1; j++) {
+                            tickets[j] = tickets[j + 1];
+                        }
+
+                        tickets[soldTicketCount - 1] = null;
+                        soldTicketCount--;
+
+                        break;
+                    }
+                }
+                if (didFind) {
+                    System.out.println("The seat has been cancelled.");
+//                    print_tickets_info();
+
+                } else {
+                    System.out.println("No ticket found for the specified seat.");
+                }
 
             } else {
                 System.out.println("This seat is already available");
@@ -134,7 +159,7 @@ public class W2051753_CinemaManagement {
 
     public void print_seating_area() {
         System.out.println("    ***********************");
-        System.out.println("    *         SCREEN      *");
+        System.out.println("    *        SCREEN       *");
         System.out.println("    ***********************");
 
         for (int i = 0; i < num_of_rows; i++) {
@@ -151,7 +176,7 @@ public class W2051753_CinemaManagement {
             System.out.println();
         }
     }
-    public void  find_first_available() {
+    public void  find_first_available() { //kinda like find first linear Algoritham
         boolean didFind = false;
 
         for (int i = 0; i < num_of_rows; i++) {
@@ -167,14 +192,44 @@ public class W2051753_CinemaManagement {
             if (didFind) {
                 break;
             }
-
         }
         if (!didFind) {
             System.out.println("Unfortunately . All seats are booked !");
         }
+    }  //total pricee still not implimented
+    public void  print_tickets_info(){
+        for (int i = 0; i < soldTicketCount; i++) {
+            tickets[i].printTicketInfo();
+
+        }
     }
 
+    public void  search_ticket(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("What is the Row? ->");
+        int rowSearch = scanner.nextInt();
+
+        System.out.println("What is the Seat? ->");
+        int seatSearch = scanner.nextInt();
+
+        rowSearch--;
+        seatSearch--;
+
+        boolean searchTickFound = false;
+        for(int i=0 ; i <soldTicketCount;i++){
+
+        }
+
+
+        
+    }
+
+
+
 }
+
+
+
 
 
 
