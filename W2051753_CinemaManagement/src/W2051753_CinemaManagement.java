@@ -6,7 +6,7 @@ public class W2051753_CinemaManagement {
     private final int num_of_rows;
     private final Ticket[] tickets;
     private int soldTicketCount = 0;
-//    private int totalPrice = 0 ;
+    private int rowPrice=0;
 
 
 
@@ -63,7 +63,7 @@ public class W2051753_CinemaManagement {
                 case 3 -> print_seating_area();
                 case 4 -> find_first_available();
                 case 5 -> print_tickets_info();
-                case 6 -> print_Menu();
+                case 6 -> search_ticket();
                 case 7 -> print_Menu();
                 default -> System.out.println("wrong input");
             }
@@ -84,7 +84,17 @@ public class W2051753_CinemaManagement {
             if (seat_pattern[rowNum][seatNum] == 0) {
                 seat_pattern[rowNum][seatNum] = 1;
 
-                int price = 10 ; //assume price
+                int[] seatPriceArr= {12,10,8};
+
+                if (rowNum==0){
+                    rowPrice = seatPriceArr[0];
+                }else if(rowNum==1 ){
+                    rowPrice = seatPriceArr[1];
+                }else {
+                    rowPrice=seatPriceArr[2];
+                }
+
+
 
                 System.out.print("What is your First Name ->");
                 String name = scanner.next();
@@ -96,7 +106,7 @@ public class W2051753_CinemaManagement {
                 String email = scanner.next();
 
                 Person person = new Person( name,surname,email);
-                Ticket ticket = new Ticket(rowNum+1,price,seatNum+1,person,soldTicketCount+1);
+                Ticket ticket = new Ticket(rowNum+1,rowPrice,seatNum+1,person,soldTicketCount+1);
                 tickets[soldTicketCount++]=ticket;
 //                totalPrice += price;//add one into tickets
 
@@ -206,21 +216,26 @@ public class W2051753_CinemaManagement {
 
     public void  search_ticket(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("What is the Row? ->");
+        System.out.print("What is the Row? ->");
         int rowSearch = scanner.nextInt();
 
-        System.out.println("What is the Seat? ->");
+        System.out.print("What is the Seat? ->");
         int seatSearch = scanner.nextInt();
 
         rowSearch--;
         seatSearch--;
 
         boolean searchTickFound = false;
-        for(int i=0 ; i <soldTicketCount;i++){
-
+        for(int i=0 ; i < soldTicketCount;i++){
+            if(tickets[i] != null && tickets[i].getRow() == rowSearch+1 && tickets[i].getSeat() == seatSearch + 1){
+                    tickets[i].printTicketInfo();
+                    searchTickFound = true;
+                    break;
+            }
         }
-
-
+        if (!searchTickFound) {
+            System.out.println("This seat is available.");
+        }
         
     }
 
